@@ -25,8 +25,8 @@ def my_count(my_list):
 	tmp_list.sort()
 	
 	dic = {}
-	for one in tmp_list:
-		dic[one] = my_list.count(one)
+	for one in xrange(len(tmp_list)):
+		dic[tmp_list[one]] = my_list.count(tmp_list[one])
 
 	return dic
 
@@ -37,9 +37,12 @@ if __name__ == '__main__':
 		sys.exit(0)
 
 	# 打开日志文件
-	f = open(sys.argv[1], 'r')
-	lines = f.readlines()
-	f.close()
+	try:
+		f = open(sys.argv[1], 'r')
+		lines = f.readlines()
+		f.close()
+	except Exception,e:
+		print e
 
 	# 各字段修改相应的数字即可
 	# 每行按空格分割，数字对应各个字段
@@ -49,4 +52,3 @@ if __name__ == '__main__':
 
 	_list = my_handle(lines, 5)
 	print json.dumps(my_count(_list), sort_keys=True, indent=4)
-
